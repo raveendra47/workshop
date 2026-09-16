@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: Remove Metadata
+---
+<h1>Remove metadata</h1>
+<p class="page-note">PDFs remember things: author names, software, timestamps, embedded XMP. See what yours leaks, then strip it. Nothing is uploaded.</p>
+
+{% set uploadId = "sanitize" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+  <div id="meta-list"></div>
+  <label class="preset-pill check-pill" id="keep-title-wrap" hidden>
+    <input type="checkbox" id="keep-title" checked>
+    <span>Keep document title (often useful, rarely identifying)</span>
+  </label>
+  <button id="run-btn" class="btn">Sanitize</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/sanitize.js"></script>

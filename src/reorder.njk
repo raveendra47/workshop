@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Reorder Pages
+---
+<h1>Reorder pages</h1>
+<p class="page-note">Drag the page thumbnails into a new order — or use the arrow buttons. The badge shows each page's original number. Lossless rebuild; nothing is uploaded.</p>
+
+{% set uploadId = "reorder" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+</div>
+
+<div id="thumb-wrap" hidden>
+  <div id="thumb-grid"></div>
+  <div class="dl-row">
+    <button id="apply-btn" class="btn" disabled>Apply new order</button>
+    <button id="reset-btn" class="btn btn-secondary" hidden>Reset to original</button>
+  </div>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/pdf.min.js"></script>
+<script src="/assets/vendor/Sortable.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/reorder.js"></script>

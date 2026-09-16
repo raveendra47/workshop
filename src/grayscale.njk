@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: Grayscale PDF
+---
+<h1>Grayscale PDF</h1>
+<p class="page-note">Convert every color to black-and-white — ideal for grayscale printing or toner savings. Powered by the same engine as Compress. Nothing is uploaded.</p>
+
+{% set uploadId = "grayscale" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+  <label class="preset-pill check-pill">
+    <input type="checkbox" id="shrink" checked>
+    <span>Also try to shrink the file</span>
+  </label>
+  <button id="run-btn" class="btn" disabled>Convert</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/grayscale.js"></script>

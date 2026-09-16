@@ -1,0 +1,50 @@
+---
+layout: base.njk
+title: Rotate Pages
+---
+<h1>Rotate pages</h1>
+<p class="page-note">Turn pages without re-encoding — instant and lossless, even on big files. Nothing is uploaded.</p>
+
+{% set uploadId = "rotate" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <fieldset class="preset-fieldset">
+    <legend>Mode</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="mode" value="all" checked><span>All pages</span></label>
+      <label class="preset-pill"><input type="radio" name="mode" value="custom"><span>Custom</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset class="preset-fieldset" id="angle-wrap">
+    <legend>Turn clockwise by</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="angle" value="90" checked><span>90°</span></label>
+      <label class="preset-pill"><input type="radio" name="angle" value="180"><span>180°</span></label>
+      <label class="preset-pill"><input type="radio" name="angle" value="270"><span>270°</span></label>
+    </div>
+  </fieldset>
+
+  <div id="custom-wrap" hidden>
+    <label class="range-label" for="plan">Pages and angles</label>
+    <input id="plan" class="range-input" type="text" autocomplete="off"
+           placeholder="e.g. 1-3:90, 7, 8:180">
+    <p class="csp-sub" id="custom-hint">Angles here override the pills. "1-3:90, 7" turns 7 by 90 too (angle sticks). Last one wins on overlaps.</p>
+  </div>
+
+  <button id="run-btn" class="btn" disabled>Rotate</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/rotate.js"></script>

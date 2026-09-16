@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: Remove Pages
+---
+<h1>Remove pages</h1>
+<p class="page-note">Delete selected pages and download the rest as a new PDF. Nothing is uploaded.</p>
+
+{% set uploadId = "remove" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+  <label class="range-label" for="ranges">Pages to remove</label>
+  <input id="ranges" class="range-input" type="text" inputmode="numeric" autocomplete="off"
+         placeholder="e.g. 2, 5-7">
+  <button id="run-btn" class="btn" disabled>Remove</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/remove-pages.js"></script>

@@ -407,3 +407,46 @@ body { font-style: italic; }
 .btn, .preset-pill span, .badge, .upload-hint strong {
   font-style: normal;
 }
+/* ---------- Sanitize leak list ---------- */
+.check-pill { margin-top: 1.25rem; display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; }
+.check-pill input { width: auto; accent-color: var(--accent); }
+.leak-row > span:last-child { flex: none; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* ---------- Reorder page ---------- */
+#thumb-grid { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.25rem; }
+.thumb-card {
+  position: relative;
+  width: 132px;
+  background: var(--surface);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .4rem .4rem .3rem;
+  cursor: grab;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.thumb-card:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow); }
+.thumb-card canvas {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--line); background: #fff;
+}
+.thumb-badge {
+  position: absolute; top: -9px; left: -9px;
+  min-width: 22px; height: 22px; padding: 0 5px;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink);
+  border: 1.5px solid var(--ink); border-radius: 999px;
+  font-family: var(--font-mono); font-size: .72rem;
+}
+.thumb-controls { display: flex; gap: .3rem; margin-top: .35rem; }
+.thumb-controls button {
+  flex: 1; height: 24px; padding: 0;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--ink); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  font-size: .8rem; line-height: 1; cursor: pointer;
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+.thumb-controls button:hover:not(:disabled) { color: var(--accent); background: var(--tint); }
+.thumb-controls button:disabled { opacity: .3; cursor: not-allowed; }
+.thumb-card.drag-ghost { opacity: .35; border-style: dashed; }
+.thumb-card.drag-chosen { cursor: grabbing; box-shadow: 5px 5px 0 var(--shadow); }

@@ -1,6 +1,5 @@
-// Module worker - spawned with { type: "module" }, loads gs.js via import().
-// API per @okathira/ghostpdl-wasm README: default-export factory, Module.FS, Module.callMain.
-
+// Module worker - serves COMPRESS ONLY (grayscale has its own worker now).
+// Page supplies: preset (-dPDFSETTINGS, optional).
 function dumpErr(err) {
   if (err == null) return "unknown (null/undefined throw)";
   if (typeof err === "string") return err;
@@ -12,88 +11,67 @@ function dumpErr(err) {
   if (err.message) parts.push("message=" + JSON.stringify(err.message));
   return parts.join(" | ");
 }
-
 let FACTORY = null;
 let BOOT_ERR = null;
 try {
   const mod = await import("/assets/wasm/ghostscript/gs.js");
-  FACTORY = mod.default;                      // README: default export is the loader
+  FACTORY = mod.default;
   if (typeof FACTORY !== "function") {
     BOOT_ERR = "No default export factory in gs.js. Exports seen: " + Object.keys(mod).join(", ");
   }
-} catch (e) {
-  BOOT_ERR = "Import failed: " + dumpErr(e);
-}
+} catch (err) { BOOT_ERR = "Import failed: " + dumpErr(err); }
 
 const WASM_DIR = "/assets/wasm/ghostscript/";
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
-
 let gsLogs = [];
-const tap = (line) => {
-  gsLogs.push(String(line));
-  send({ type: "log", line: String(line) });
-};
-const tail = (n) => gsLogs.slice(-n).join(" // ") || "(no output captured from Ghostscript)";
+const tap = (line) => { gsLogs.push(String(line)); send({ type: "log", line: String(line) }); };
+const tail = (n) => gsLogs.slice(-n).join(" // ") || "(no output captured)";
 
 self.onmessage = async (e) => {
   if (e.data?.type !== "run") return;
-  const { id, data, preset } = e.data;
+  let { id, data, preset } = e.data;
   let stage = "init";
+  const T0 = performance.now();
+  const el = () => ((performance.now() - T0) / 1000).toFixed(1) + "s";
   try {
     if (BOOT_ERR) throw new Error(BOOT_ERR);
-
     gsLogs = [];
-    stage = "init";
-    console.error("[gs] initializing WASM module...");
-    const gs = await FACTORY({
-      locateFile: (p) => WASM_DIR + p,
-      noInitialRun: true,
-      print: tap,
-      printErr: tap,
-    });
-    console.error("[gs] module ready. API keys:", Object.keys(gs).join(", "));
-
+    console.error("[gs] " + el() + ": bootstrapping module...");
+    const gs = await FACTORY({ locateFile: (p) => WASM_DIR + p, noInitialRun: true, print: tap, printErr: tap });
+    console.error("[gs] " + el() + ": module ready");
     if (!gs.FS) throw new Error("No FS on module. Keys: " + Object.keys(gs).join(", "));
-
     stage = "write input";
     gs.FS.writeFile("in.pdf", new Uint8Array(data));
-
+    data = null;
+    console.error("[gs] " + el() + ": input written");
     stage = "run";
     const args = [
       "-sDEVICE=pdfwrite",
-      "-dPDFSETTINGS=/" + preset,
-      "-dNOPAUSE",
-      "-dBATCH",
-      "-sOutputFile=out.pdf",
-      "in.pdf",
+      ...(preset ? ["-dPDFSETTINGS=/" + preset] : []),
+      "-dNOPAUSE", "-dBATCH",
+      "-sOutputFile=out.pdf", "in.pdf",
     ];
-    try {
-      gs.callMain(args);                      // README: callMain is the run API
-    } catch (e) {
-      // Ghostscript terminates via exit(0); Emscripten may surface that as ExitStatus.
-      if (!(e && e.name === "ExitStatus" && e.status === 0)) throw e;
-      console.error("[gs] callMain exited via ExitStatus(0) - normal termination");
-    }
-
+    console.error("[gs] " + el() + ": callMain start");
+    try { gs.callMain(args); }
+    catch (err) { if (!(err && err.name === "ExitStatus" && err.status === 0)) throw err; }
+    console.error("[gs] " + el() + ": callMain done");
     stage = "read output";
     const exists = gs.FS.analyzePath ? gs.FS.analyzePath("out.pdf").exists : true;
-    if (!exists) {
-      throw new Error("Ghostscript ran but created no out.pdf. Last output:\n" + tail(15));
-    }
-    const out = gs.FS.readFile("out.pdf", { encoding: "binary" });  // README-exact
+    if (!exists) throw new Error("No out.pdf created. Last output:\n" + tail(15));
+    const out = gs.FS.readFile("out.pdf", { encoding: "binary" });
     const bytes = out instanceof Uint8Array ? out : new Uint8Array(out);
     try { gs.FS.unlink("in.pdf"); gs.FS.unlink("out.pdf"); } catch {}
-
-    if (!bytes.length) {
-      throw new Error("Ghostscript produced an empty out.pdf. Last output:\n" + tail(15));
-    }
-
-    console.error("[gs] success:", bytes.length, "bytes");
-    send({ type: "done", id, data: bytes.buffer, size: bytes.length }, [bytes.buffer]);
+    if (!bytes.length) throw new Error("Empty out.pdf. Last output:\n" + tail(15));
+    const workerResources = (self.performance && self.performance.getEntriesByType)
+      ? self.performance.getEntriesByType("resource").map((r) => ({ name: r.name, type: r.initiatorType })) : [];
+    console.error("[gs] " + el() + ": success, out=" + bytes.length + "B");
+    send({ type: "done", id, data: bytes.buffer, size: bytes.length, workerResources }, [bytes.buffer]);
   } catch (err) {
-    const detail = "stage=" + stage + " | " + dumpErr(err)
+    const blob = (err?.name || "") + " " + (err?.message || "");
+    const oom = /memory|allocat|enlarge|RangeError/i.test(blob);
+    const detail = (oom ? "out-of-memory" : "stage=" + stage) + " | " + dumpErr(err)
       + (gsLogs.length ? " | gs-tail: " + tail(8) : "");
-    console.error("[gs] FAILED at " + stage + ":", err);
-    send({ type: "error", id, message: detail });
+    console.error("[gs] FAILED at " + stage + " (" + el() + "):", err);
+    send({ type: "error", id, message: oom ? "Ran out of memory - file too large for this device." : detail });
   }
 };
