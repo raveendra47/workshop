@@ -1,0 +1,48 @@
+---
+layout: base.njk
+title: Split PDF
+---
+<h1>Split PDF</h1>
+<p class="page-note">Split a PDF into separate files — every page, uniform chunks, custom ranges, or odd/even. Nothing is uploaded.</p>
+
+{% set uploadId = "split" %}
+{% include "upload-widget.njk" %}
+
+<div id="split-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <fieldset class="preset-fieldset">
+    <legend>Split mode</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="mode" value="page" checked><span>Every page</span></label>
+      <label class="preset-pill"><input type="radio" name="mode" value="n"><span>Every N</span></label>
+      <label class="preset-pill"><input type="radio" name="mode" value="custom"><span>Custom</span></label>
+      <label class="preset-pill"><input type="radio" name="mode" value="odd"><span>Odd pages</span></label>
+      <label class="preset-pill"><input type="radio" name="mode" value="even"><span>Even pages</span></label>
+    </div>
+  </fieldset>
+
+  <div id="n-wrap" hidden>
+    <label class="range-label" for="n-input">Pages per file</label>
+    <input id="n-input" class="range-input" type="number" min="1" value="2" inputmode="numeric">
+  </div>
+
+  <div id="custom-wrap" hidden>
+    <label class="range-label" for="ranges">Ranges</label>
+    <input id="ranges" class="range-input" type="text" inputmode="numeric" autocomplete="off"
+           placeholder="e.g. 1-3, 5, 8-10">
+  </div>
+
+  <button id="split-btn" class="btn" disabled>Split</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/split.js"></script>

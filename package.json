@@ -1,0 +1,28 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "node scripts/sync-vendor.mjs",
+    "postinstall": "node scripts/sync-vendor.mjs",
+    "dev": "npm run sync && eleventy --serve",
+    "build": "npm run sync && eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@jspawn/qpdf-wasm": "^0.0.2",
+    "@okathira/ghostpdl-wasm": "^1.1.0",
+    "fflate": "^0.8.3",
+    "idb": "^7.1.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.11.174",
+    "sortablejs": "^1.15.7",
+    "tesseract.js": "^7.0.0"
+  }
+}

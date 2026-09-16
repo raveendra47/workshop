@@ -1,0 +1,36 @@
+---
+layout: base.njk
+title: Compress PDF
+---
+<h1>Compress PDF</h1>
+<p class="page-note">Real recompression — images are downsampled and re-encoded, not just repackaged. Everything runs in your browser.</p>
+
+{% set uploadId = "compress" %}
+{% include "upload-widget.njk" %}
+
+<div id="compress-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <fieldset class="preset-fieldset">
+    <legend>Quality</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="preset" value="screen"><span>Small</span></label>
+      <label class="preset-pill"><input type="radio" name="preset" value="ebook" checked><span>Balanced</span></label>
+      <label class="preset-pill"><input type="radio" name="preset" value="printer"><span>High quality</span></label>
+    </div>
+  </fieldset>
+
+  <button id="compress-btn" class="btn">Compress</button>
+  <p class="size-note" id="size-note"></p>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status">Loading Ghostscript…</p>
+</div>
+
+<div id="result-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/compress.js"></script>

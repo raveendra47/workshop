@@ -1,0 +1,18 @@
+---
+layout: base.njk
+title: History
+---
+<h1>History</h1>
+{% include "history-note.njk" %}
+
+<div class="preset-row" id="filter-row"></div>
+<p id="empty" class="empty-note" hidden>No operations yet. Everything you do in the tools gets logged here.</p>
+
+<div id="entries"></div>
+
+<div class="history-actions">
+  <button id="clear-btn" class="btn btn-secondary" hidden>Clear all</button>
+</div>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/history.js"></script>

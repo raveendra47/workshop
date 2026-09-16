@@ -1,0 +1,17 @@
+---
+layout: base.njk
+title: Vendor Test
+---
+<h1>Vendor smoke test</h1>
+<p>Open the console (F12).</p>
+<script src="/assets/vendor/pdf-lib.min.js"></script>
+<script>
+  PDFLib.PDFDocument.create()
+    .then(async doc => {
+      const page = doc.addPage([400, 200]);
+      page.drawText("pdf-lib works offline", { x: 40, y: 100, size: 20 });
+      const bytes = await doc.save();
+      console.log("✅ pdf-lib OK —", bytes.length, "bytes generated");
+    })
+    .catch(e => console.error("❌", e));
+</script>

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: Merge PDFs
+---
+<h1>Merge PDFs</h1>
+{% set uploadId = "merge" %}
+{% set uploadMultiple = true %}
+{% include "upload-widget.njk" %}
+<div id="file-list"></div>
+<button id="merge-btn" class="btn" disabled>Merge</button>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden>
+  <p class="result-line" id="dl-line"></p>
+  <button class="btn" id="dl-btn">Download</button>
+</div>
+<p id="status" role="status"></p>
+<script src="/assets/vendor/pdf-lib.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/merge.js"></script>

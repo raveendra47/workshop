@@ -1,0 +1,51 @@
+---
+layout: base.njk
+title: Verify Privacy
+---
+<h1>Verify your privacy</h1>
+<p class="page-note">This page watches its own network activity and reports it live. The guarantee underneath is our Content-Security-Policy — the browser itself refuses any request not aimed at this site. This page just lets you watch it happen.</p>
+
+<div class="verdict-grid">
+  <div class="verdict-box"><div class="verdict-num" id="stat-total">0</div>requests seen</div>
+  <div class="verdict-box"><div class="verdict-num" id="stat-same">0</div>to this site</div>
+  <div class="verdict-box"><div class="verdict-num" id="stat-local">0</div>in-memory only</div>
+  <div class="verdict-box"><div class="verdict-num" id="stat-external">0</div>external</div>
+</div>
+<p class="verdict-line ok" id="verdict-line">Watching…</p>
+<p class="csp-sub" id="api-line">fetch / XHR / sendBeacon calls made by this page: none</p>
+
+<section class="verify-section">
+  <h2>Demos</h2>
+  <p>Run real operations and watch the counters. Even the heavy demo downloads our ~15 MB compression engine — from this site, counted in the log below.</p>
+  <div class="dl-row">
+    <button class="btn" id="demo-light">Light demo — create a PDF</button>
+    <button class="btn btn-secondary" id="demo-heavy">Heavy demo — compress via Ghostscript WASM</button>
+  </div>
+  <p class="file-summary" id="demo-light-out"></p>
+  <p class="file-summary" id="demo-heavy-out"></p>
+</section>
+
+<section class="verify-section">
+  <h2>CSP header check</h2>
+  <p class="csp-line" id="csp-line">Checking…</p>
+</section>
+
+<section class="verify-section">
+  <h2>Request log</h2>
+  <p class="csp-sub"><span id="req-count">0</span> requests since page load (showing latest 200)</p>
+  <div class="req-scroll">
+    <table class="req-table">
+      <thead><tr><th>type</th><th>url</th><th>where</th></tr></thead>
+      <tbody id="req-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="verify-section">
+  <h2>What this page can and cannot see</h2>
+  <p>It sees every completed resource load in this page, everything our workers load (they self-report), and every fetch / XHR / beacon call the site's code makes. It cannot see raw socket traffic — that's what the CSP is for: even if code tried, the browser blocks anything not aimed at this site.</p>
+  <p>Don't take our word for it: open DevTools, Network tab, tick "Preserve log", use any tool on this site, and filter by domain. Everything you see will be this site.</p>
+</section>
+
+<script src="/assets/vendor/pdf-lib.min.js"></script>
+<script type="module" src="/assets/js/verify.js"></script>
