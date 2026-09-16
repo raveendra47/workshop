@@ -44,6 +44,8 @@ await dir ("tesseract.js-core",                      `${W}/tesseract-core`);
 await dir("@okathira/ghostpdl-wasm/dist", `${W}/ghostscript`);
 await file("@jspawn/qpdf-wasm/qpdf.js",   `${W}/qpdf/qpdf.js`);
 await file("@jspawn/qpdf-wasm/qpdf.wasm", `${W}/qpdf/qpdf.wasm`);
+await file("@fontsource-variable/josefin-sans/files/josefin-sans-latin-wght-normal.woff2",
+           "assets/fonts/josefin-sans-latin-wght-normal.woff2");
 
 console.log(`\nsync finished: ${ok} copied, ${missing} missing`);
 if (missing) console.log("→ open the missing package folder in node_modules and fix the path above.");

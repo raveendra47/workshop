@@ -363,3 +363,47 @@ h1 {
 .history-meta { color: var(--ink-soft); font-size: .8rem; flex: none; }
 .history-actions { margin-top: 1.5rem; }
 .empty-note { color: var(--ink-soft); font-style: italic; margin-top: 1.5rem; }
+/* ---------- Typography system (final) ---------- */
+/* Self-hosted Josefin Sans — headings, logo, big numbers */
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("/assets/fonts/josefin-sans-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: "Josefin Sans", Georgia, sans-serif;   /* structure */
+  --font-body: Georgia, "Iowan Old Style", serif;        /* reading voice */
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;  /* machine output */
+}
+
+/* Headings: Josefin, bold — every heading type on the site */
+h1, h2, h3, h4,
+.tool-card h2,
+.verify-section h2,
+.logo,
+.result-big,
+.verdict-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: .01em;
+}
+
+/* Reading voice: Georgia italic everywhere body text inherits */
+body { font-style: italic; }
+
+/* Machine output stays upright and mono */
+#status, #progress-status, .file-summary, .result-line,
+.history-meta, .history-name, .file-row > span:first-child,
+.range-input, .req-table, .csp-line {
+  font-family: var(--font-mono);
+  font-style: normal;
+}
+
+/* UI chrome that reads better upright */
+.btn, .preset-pill span, .badge, .upload-hint strong {
+  font-style: normal;
+}

@@ -16,6 +16,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
+    "@fontsource-variable/josefin-sans": "^5.3.0",
     "@jspawn/qpdf-wasm": "^0.0.2",
     "@okathira/ghostpdl-wasm": "^1.1.0",
     "fflate": "^0.8.3",
