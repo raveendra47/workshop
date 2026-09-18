@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: Image to PDF
+---
+<h1>Image to PDF</h1>
+<p class="page-note">Turn JPG/PNG images into one PDF — each image becomes a page at its natural size. Drag to set the page order. Nothing is uploaded.</p>
+
+{% set uploadId = "img2pdf" %}
+{% set uploadMultiple = true %}
+{% set accept = "image/jpeg,image/png" %}
+{% include "upload-widget.njk" %}
+
+<div id="img-list"></div>
+<div class="dl-row">
+  <button id="run-btn" class="btn" disabled>Create PDF</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/Sortable.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/image-to-pdf.js"></script>

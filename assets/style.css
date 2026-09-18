@@ -451,3 +451,12 @@ body { font-style: italic; }
 .thumb-card.drag-ghost { opacity: .35; border-style: dashed; }
 .thumb-card.drag-chosen { cursor: grabbing; box-shadow: 5px 5px 0 var(--shadow); }
 .num-input { max-width: 120px; display: inline-block; margin-right: 1rem; }
+/* ---------- Image → PDF ---------- */
+.img-row { gap: .8rem; }
+.img-thumb {
+  width: 56px; height: 56px; flex: none;
+  border: 1.5px solid var(--ink); border-radius: 6px;
+  overflow: hidden; cursor: grab; background: #fff;
+  display: grid; place-items: center;
+}
+.img-thumb img { width: 100%; height: 100%; object-fit: cover; }

@@ -1,12 +1,21 @@
+{% set accept = accept | default("application/pdf,.pdf") %}
+{% if accept == "application/pdf,.pdf" %}
+  {% set kind = "PDF" %}
+  {% set extensions = ".pdf files" %}
+{% else %}
+  {% set kind = "image" %}
+  {% set extensions = "JPG / PNG images" %}
+{% endif %}
+
 <div class="upload" id="{{ uploadId }}-zone" data-upload
-     role="button" tabindex="0" aria-label="Upload PDFs">
-  <input type="file" id="{{ uploadId }}-input" accept="application/pdf,.pdf"{% if uploadMultiple %} multiple{% endif %}>
+     role="button" tabindex="0" aria-label="Upload {{ kind }} files">
+  <input type="file" id="{{ uploadId }}-input" accept="{{ accept }}"{% if uploadMultiple %} multiple{% endif %}>
   <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
        stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
     <polyline points="17 8 12 3 7 8"/>
     <line x1="12" y1="3" x2="12" y2="15"/>
   </svg>
-  <p class="upload-hint"><strong>Drop PDFs here</strong> <span>or click to browse</span></p>
+  <p class="upload-hint"><strong>Drop {{ extensions }} here</strong> <span>or click to browse</span></p>
   <p class="upload-note">Files never leave your device.</p>
 </div>
