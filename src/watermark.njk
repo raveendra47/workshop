@@ -1,0 +1,69 @@
+---
+layout: base.njk
+title: Watermark
+---
+<h1>Watermark</h1>
+<p class="page-note">Stamp text or an image across every page — draft marks, confidentiality notices, branding. Text uses the embedded Unicode font (Latin, Cyrillic, Greek). Nothing is uploaded.</p>
+
+{% set uploadId = "watermark" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <fieldset class="preset-fieldset">
+    <legend>Type</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="wm-type" value="text" checked><span>Text</span></label>
+      <label class="preset-pill"><input type="radio" name="wm-type" value="image"><span>Image</span></label>
+    </div>
+  </fieldset>
+
+  <div id="wm-text-controls">
+    <label class="range-label" for="wm-text">Watermark text</label>
+    <input id="wm-text" class="range-input" type="text" value="CONFIDENTIAL" autocomplete="off">
+    <div class="dl-row">
+      <label class="range-label" for="wm-angle">Angle</label>
+      <input id="wm-angle" class="range-input num-input" type="number" min="-90" max="90" value="-45">
+      <label class="range-label" for="wm-size">Font size</label>
+      <input id="wm-size" class="range-input num-input" type="number" min="8" max="200" value="48">
+    </div>
+  </div>
+
+  <div id="wm-image-controls" hidden>
+    <label class="range-label" for="wm-img">Logo / image (PNG with transparency works best)</label>
+    <input id="wm-img" type="file" accept="image/png,image/jpeg">
+    <div class="dl-row">
+      <label class="range-label" for="wm-scale">Size % of original</label>
+      <input id="wm-scale" class="range-input num-input" type="number" min="1" max="200" value="30">
+    </div>
+  </div>
+
+  <fieldset class="preset-fieldset">
+    <legend>Position & opacity</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="pos" value="mc" checked><span>Center</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="tc"><span>Top</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="bc"><span>Bottom</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="tl"><span>Top left</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="br"><span>Bottom right</span></label>
+    </div>
+    <div class="dl-row">
+      <label class="range-label" for="wm-opacity">Opacity</label>
+      <input id="wm-opacity" class="range-input num-input" type="number" min="5" max="100" value="15">
+    </div>
+  </fieldset>
+
+  <button id="run-btn" class="btn" disabled>Apply watermark</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/watermark.js"></script>

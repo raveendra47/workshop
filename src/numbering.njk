@@ -1,0 +1,49 @@
+---
+layout: base.njk
+title: Page Numbers
+---
+<h1>Page numbers</h1>
+<p class="page-note">Stamp page numbers onto a PDF — position, format, and start value under your control. Uses an embedded Unicode font (Latin, Cyrillic, Greek). Nothing is uploaded.</p>
+
+{% set uploadId = "numbering" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <div class="dl-row">
+    <label class="range-label" for="fmt">Format</label>
+    <input id="fmt" class="range-input" type="text" value="Page {n} of {total}" autocomplete="off">
+    <p class="csp-sub">{n} = page number · {total} = page count</p>
+  </div>
+
+  <fieldset class="preset-fieldset">
+    <legend>Position</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="pos" value="bc" checked><span>Bottom center</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="br"><span>Bottom right</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="bl"><span>Bottom left</span></label>
+      <label class="preset-pill"><input type="radio" name="pos" value="tc"><span>Top center</span></label>
+    </div>
+  </fieldset>
+
+  <div class="dl-row">
+    <label class="range-label" for="start">Start at</label>
+    <input id="start" class="range-input num-input" type="number" min="1" value="1">
+    <label class="range-label" for="size">Font size</label>
+    <input id="size" class="range-input num-input" type="number" min="6" max="48" value="10">
+  </div>
+
+  <button id="run-btn" class="btn" disabled>Stamp numbers</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/numbering.js"></script>

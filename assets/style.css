@@ -450,3 +450,4 @@ body { font-style: italic; }
 .thumb-controls button:disabled { opacity: .3; cursor: not-allowed; }
 .thumb-card.drag-ghost { opacity: .35; border-style: dashed; }
 .thumb-card.drag-chosen { cursor: grabbing; box-shadow: 5px 5px 0 var(--shadow); }
+.num-input { max-width: 120px; display: inline-block; margin-right: 1rem; }
