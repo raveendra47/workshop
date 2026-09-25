@@ -460,3 +460,10 @@ body { font-style: italic; }
   display: grid; place-items: center;
 }
 .img-thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* ---------- Security tools ---------- */
+.own-note {
+  font-family: var(--font-display); font-style: italic;
+  color: var(--accent-hover);
+  border-left: 3px solid var(--accent);
+  padding-left: .8rem; margin: -.4rem 0 1.25rem; font-size: .92rem;
+}

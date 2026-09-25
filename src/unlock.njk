@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Unlock PDF
+---
+<h1>Unlock PDF</h1>
+<p class="page-note">Remove the password from a PDF you know the password for. Nothing is uploaded.</p>
+
+<div class="own-note">
+  Only unlock files you own or have the right to modify. Password removal on
+  someone else's protected document is not a legitimate use of this tool.
+</div>
+
+{% set uploadId = "unlock" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <label class="range-label" for="pw">Current password</label>
+  <input id="pw" class="range-input" type="password" autocomplete="off">
+
+  <button id="run-btn" class="btn" disabled>Remove password</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/unlock.js"></script>

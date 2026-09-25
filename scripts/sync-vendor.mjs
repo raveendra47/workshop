@@ -44,6 +44,8 @@ await dir ("tesseract.js-core",                      `${W}/tesseract-core`);
 await dir("@okathira/ghostpdl-wasm/dist", `${W}/ghostscript`);
 await file("@jspawn/qpdf-wasm/qpdf.js",   `${W}/qpdf/qpdf.js`);
 await file("@jspawn/qpdf-wasm/qpdf.wasm", `${W}/qpdf/qpdf.wasm`);
+await file("@jspawn/qpdf-wasm/qpdf.mjs", `${W}/qpdf/qpdf.mjs`);
+await file("@jspawn/qpdf-wasm/browser.js", `${W}/qpdf/browser.js`);
 await file("@fontsource-variable/josefin-sans/files/josefin-sans-latin-wght-normal.woff2",
            "assets/fonts/josefin-sans-latin-wght-normal.woff2");
 await file("@pdf-lib/fontkit/dist/fontkit.umd.min.js", `${V}/pdf-lib.fontkit.min.js`);
