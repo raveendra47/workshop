@@ -1,0 +1,45 @@
+---
+layout: base.njk
+title: PDF to Image
+---
+<h1>PDF to images</h1>
+<p class="page-note">Export every page as an image, one file per page, zipped. Higher DPI = sharper but heavier. Rendering happens in your browser — nothing is uploaded.</p>
+
+{% set uploadId = "pdf2img" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+
+  <fieldset class="preset-fieldset">
+    <legend>Quality</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="dpi" value="1" checked><span>Standard (96 DPI)</span></label>
+      <label class="preset-pill"><input type="radio" name="dpi" value="2"><span>High (192 DPI)</span></label>
+      <label class="preset-pill"><input type="radio" name="dpi" value="3"><span>Max (288 DPI)</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset class="preset-fieldset">
+    <legend>Format</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="fmt" value="jpeg" checked><span>JPEG (small)</span></label>
+      <label class="preset-pill"><input type="radio" name="fmt" value="png"><span>PNG (lossless)</span></label>
+    </div>
+  </fieldset>
+
+  <button id="run-btn" class="btn" disabled>Convert</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/pdf.min.js"></script>
+<script src="/assets/vendor/fflate.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/pdf-to-image.js"></script>
