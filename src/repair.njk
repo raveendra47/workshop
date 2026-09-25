@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: Repair PDF
+---
+<h1>Repair PDF</h1>
+<p class="page-note">Rebuild a damaged PDF's internal structure. Two engines are tried in sequence, and you get a diagnosis of what was wrong. Nothing is uploaded.</p>
+
+{% set uploadId = "repair" %}
+{% include "upload-widget.njk" %}
+
+<div id="tool-controls" hidden>
+  <p class="file-summary" id="file-summary"></p>
+  <div id="notes" aria-live="polite"></div>
+  <button id="run-btn" class="btn" disabled>Repair</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/repair.js"></script>

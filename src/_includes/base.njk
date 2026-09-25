@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }} — PDF Tools</title>
+  <title>{{ title }} — {{ siteName | default("PDF Tools") }}</title>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="logo" href="/">PDF&nbsp;Tools</a>
+    <div class="brand">
+      <a class="logo" href="/">PDF&nbsp;Tools</a>
+      <span class="brand-sep" aria-hidden="true">·</span>
+      <a class="logo logo-images" href="/image-tools/">Image&nbsp;Tools</a>
+    </div>
     <nav>
       <a href="/history/">History</a>
       <a href="/verify/">Verify</a>

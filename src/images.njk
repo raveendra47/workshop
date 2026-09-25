@@ -1,0 +1,91 @@
+---
+layout: base.njk
+title: Image Tools
+---
+<h1>Image tools</h1>
+<p class="page-note">Compress, convert, resize, rotate and flip images — with live before/after previews. Click a row to preview it; click ⤢ for full size. Everything stays on this machine.</p>
+
+{% set uploadId = "images" %}
+{% set uploadMultiple = true %}
+{% set accept = "image/jpeg,image/png,image/webp" %}
+{% include "upload-widget.njk" %}
+
+<div id="img-list"></div>
+
+<div id="workshop" hidden>
+  <fieldset class="preset-fieldset">
+    <legend>Operation</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="op" value="compress" checked><span>Compress</span></label>
+      <label class="preset-pill"><input type="radio" name="op" value="convert"><span>Convert</span></label>
+      <label class="preset-pill"><input type="radio" name="op" value="resize"><span>Resize</span></label>
+      <label class="preset-pill"><input type="radio" name="op" value="rotate"><span>Rotate / Flip</span></label>
+    </div>
+  </fieldset>
+
+  <div id="ctl-compress" class="op-controls">
+    <fieldset class="preset-fieldset">
+      <legend>Quality: <span id="q-val" class="q-val">75</span>% <span class="csp-sub">(JPEG / WebP only — PNG is lossless)</span></legend>
+      <input id="quality" class="q-range" type="range" min="5" max="100" value="75">
+    </fieldset>
+  </div>
+
+  <div id="ctl-convert" class="op-controls" hidden>
+    <p class="csp-sub">Pick the output format below — pixels are unchanged, only the container.</p>
+  </div>
+
+  <div id="ctl-resize" class="op-controls" hidden>
+    <div class="dl-row">
+      <label class="range-label" for="rz-w">Width</label>
+      <input id="rz-w" class="range-input num-input" type="number" min="1" placeholder="1280">
+      <label class="range-label" for="rz-h">Height</label>
+      <input id="rz-h" class="range-input num-input" type="number" min="1" placeholder="960">
+    </div>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="rmode" value="fit" checked><span>Fit within box</span></label>
+      <label class="preset-pill"><input type="radio" name="rmode" value="exact"><span>Exact (stretch)</span></label>
+      <label class="preset-pill check-pill"><input type="checkbox" id="rz-lock" checked><span>Lock aspect</span></label>
+    </div>
+    <p class="csp-sub">Leave both empty for no size change. Fit keeps aspect; Exact stretches to the box.</p>
+  </div>
+
+  <div id="ctl-rotate" class="op-controls" hidden>
+    <p class="csp-sub">Use ↻ ⇋ ⇵ buttons on each row — thumbnails update live.</p>
+  </div>
+
+  <fieldset class="preset-fieldset">
+    <legend>Output format</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="ofmt" value="keep" checked><span>Keep original</span></label>
+      <label class="preset-pill"><input type="radio" name="ofmt" value="image/jpeg"><span>JPEG</span></label>
+      <label class="preset-pill"><input type="radio" name="ofmt" value="image/png"><span>PNG</span></label>
+      <label class="preset-pill"><input type="radio" name="ofmt" value="image/webp"><span>WebP</span></label>
+    </div>
+  </fieldset>
+
+  <div id="preview-panel">
+    <div class="preview-box">
+      <p class="csp-sub">Original</p>
+      <img id="preview-before" alt="original preview">
+    </div>
+    <div class="preview-box">
+      <p class="csp-sub">Result <span id="preview-sizes"></span></p>
+      <img id="preview-after" alt="result preview">
+      <p class="csp-sub" id="preview-name"></p>
+    </div>
+  </div>
+
+  <button id="run-btn" class="btn" disabled>Process all</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/fflate.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/images.js"></script>
