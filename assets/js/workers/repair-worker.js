@@ -1,7 +1,7 @@
 // Classic worker — Repair: Ghostscript rebuild first, pdf-lib fallback.
 // Strategy per blueprint: GS re-interprets damaged structure; pdf-lib is the
 // stricter parser that sometimes succeeds where GS refuses.
-importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
+importScripts("../../vendor/pdf-lib.min.js");
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 
@@ -34,7 +34,7 @@ self.onmessage = async (e) => {
       const FACTORY = mod.default;
       if (typeof FACTORY !== "function") throw new Error("gs.js factory missing");
       const gs = await FACTORY({
-        locateFile: (p) => new URL("../../wasm/ghostscript/", import.meta.url).href + p,
+        locateFile: (p) => new URL("../../wasm/ghostscript/", self.location.href).href + p,
         noInitialRun: true,
         print: () => {},
         printErr: () => {},

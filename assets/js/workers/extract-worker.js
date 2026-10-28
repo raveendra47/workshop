@@ -1,7 +1,7 @@
 // Classic worker — shared by Extract and Remove pages.
 // Payload in: { type: "probe" | "run", ... }
 // run: { id, data, pages: [1-based page numbers to KEEP, in output order] }
-importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
+importScripts("../../vendor/pdf-lib.min.js");
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 

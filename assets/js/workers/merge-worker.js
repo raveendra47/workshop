@@ -1,5 +1,5 @@
 // Classic worker - pdf-lib UMD loads via importScripts (no import.meta in UMD builds).
-importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
+importScripts(new URL("../../vendor/pdf-lib.min.js", self.location.href).href);
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 
