@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 const images = [];            // { file, name, bytesPromise } — order = page order
 const seen = new Set();
@@ -130,7 +130,7 @@ btn.addEventListener("click", async () => {
         payload.push({ name: it.file.name, mime: it.file.type, bytes: await it.file.arrayBuffer() });
     }
 
-    const worker = new Worker("/assets/js/workers/img2pdf-worker.js");
+    const worker = new Worker(new URL("./workers/img2pdf-worker.js", import.meta.url).href);
     worker.onmessage = (e) => handle(e.data);
     worker.onerror = (e) => {
         finish();

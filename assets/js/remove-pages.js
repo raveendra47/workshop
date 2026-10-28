@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let pageCount = 0;
@@ -83,7 +83,7 @@ function renderProgress() {
 
 function getWorker() {
   if (worker) return worker;
-  worker = new Worker("/assets/js/workers/extract-worker.js");  // shared worker
+  worker = new Worker(new URL("./workers/extract-worker.js", import.meta.url).href);  // shared worker
   worker.onmessage = (e) => handle(e.data);
   worker.onerror = (e) => {
     worker = null;

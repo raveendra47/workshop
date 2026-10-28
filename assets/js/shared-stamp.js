@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 export function initStampTool({ tool, specBuilder, outSuffix, note }) {
   let file = null;
@@ -22,7 +22,7 @@ export function initStampTool({ tool, specBuilder, outSuffix, note }) {
   const dlCard = document.getElementById("dl-card");
   const status = document.getElementById("status");
 
-  fetch("/assets/fonts/dejavu-sans.ttf")
+  fetch(new URL("../fonts/dejavu-sans.ttf", import.meta.url).href)
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
     .then((b) => { fontBytes = b; })
     .catch(() => { status.textContent = "Font failed to load — text stamping disabled."; });
@@ -80,7 +80,7 @@ export function initStampTool({ tool, specBuilder, outSuffix, note }) {
 
     const buf = await file.arrayBuffer();
     if (!worker) {
-      worker = new Worker("/assets/js/workers/stamp-worker.js");
+      worker = new Worker(new URL("./workers/stamp-worker.js", import.meta.url).href);
       worker.onmessage = (e) => handle(e.data);
       worker.onerror = (e) => {
         worker = null;

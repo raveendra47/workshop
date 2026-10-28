@@ -3,8 +3,8 @@
 // spec.image = { scalePct, opacity, angle }  + imageBytes (PNG/JPEG bytes)
 // spec.numbering = { start } → enables {n}/{total}/{page} substitution
 // spec.position = tl|tc|tr|ml|mc|mr|bl|bc|br   spec.margin (pts)   spec.pages (1-based, optional)
-importScripts("/assets/vendor/pdf-lib.min.js");
-importScripts("/assets/vendor/pdf-lib.fontkit.min.js");
+importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
+importScripts(new URL("../../vendor/pdf-lib.fontkit.min.js", import.meta.url).href);
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 const POS = {

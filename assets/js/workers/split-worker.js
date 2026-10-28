@@ -1,6 +1,6 @@
 // Classic worker — pdf-lib + fflate load via importScripts (UMD builds).
-importScripts("/assets/vendor/pdf-lib.min.js");
-importScripts("/assets/vendor/fflate.min.js");
+importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
+importScripts(new URL("../../vendor/fflate.min.js", import.meta.url).href);
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 

@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 // ---------------- EXIF parser (JPEG APP1) ----------------
 // Reads IFD0, Exif IFD and GPS IFD from JPEG APP1/TIFF. Tags: human-relevant subset.

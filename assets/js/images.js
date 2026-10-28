@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 const ACCEPT = /image\/(jpeg|png|webp)/;
 const EXTS = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };

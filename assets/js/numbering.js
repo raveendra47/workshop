@@ -1,4 +1,4 @@
-import { initStampTool } from "/assets/js/shared-stamp.js";
+import { initStampTool } from "./shared-stamp.js";
 
 initStampTool({
   tool: "numbering",

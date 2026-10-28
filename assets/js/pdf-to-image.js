@@ -1,12 +1,12 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 // pdf.js setup — identical to reorder.js (single source of truth for these settings)
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/vendor/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("../vendor/pdf.worker.min.js", import.meta.url).href;
 const PDF_OPTS = {
   isEvalSupported: false,
-  cMapUrl: "/assets/vendor/cmaps/",
+  cMapUrl: new URL("../vendor/cmaps/", import.meta.url).href,
   cMapPacked: true,
-  standardFontDataUrl: "/assets/vendor/standard_fonts/",
+  standardFontDataUrl: new URL("../vendor/standard_fonts/", import.meta.url).href,
 };
 
 // Memory guard: A4 @ 288 DPI ≈ 2380×3360 px ≈ 32MB per canvas — fine one at a

@@ -1,13 +1,13 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 // pdf.js setup — local worker, CVE mitigation, local cmaps + standard fonts
 // (all vendored since the sync step).
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/vendor/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("../vendor/pdf.worker.min.js", import.meta.url).href;
 const PDF_OPTS = {
   isEvalSupported: false,           // mitigates the pdf.js v3 font-matrix CVE; CSP also blocks it
-  cMapUrl: "/assets/vendor/cmaps/",
+  cMapUrl: new URL("../vendor/cmaps/", import.meta.url).href,
   cMapPacked: true,
-  standardFontDataUrl: "/assets/vendor/standard_fonts/",
+  standardFontDataUrl: new URL("../vendor/standard_fonts/", import.meta.url).href,
 };
 
 const THUMB_W = 124;                // px — small on purpose (memory rule, blueprint §6)
@@ -218,7 +218,7 @@ applyBtn.addEventListener("click", async () => {
 
 function getWorker() {
   if (worker) return worker;
-  worker = new Worker("/assets/js/workers/reorder-worker.js");
+  worker = new Worker(new URL("./workers/reorder-worker.js", import.meta.url).href);
   worker.onmessage = (e) => handle(e.data);
   worker.onerror = (e) => {
     worker = null;

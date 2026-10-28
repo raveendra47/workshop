@@ -4,7 +4,7 @@ title: Vendor Test
 ---
 <h1>Vendor smoke test</h1>
 <p>Open the console (F12).</p>
-<script src="/assets/vendor/pdf-lib.min.js"></script>
+<script src="{{ '/assets/vendor/pdf-lib.min.js' | url }}"></script>
 <script>
   PDFLib.PDFDocument.create()
     .then(async doc => {

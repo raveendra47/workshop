@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 const files = [];
 const seen = new Set();
@@ -120,7 +120,7 @@ btn.addEventListener("click", async () => {
   ticker = setInterval(renderProgress, 100);
 
   const inSize = files.reduce((s, f) => s + f.size, 0);
-  const worker = new Worker("/assets/js/workers/merge-worker.js");
+  const worker = new Worker(new URL("./workers/merge-worker.js", import.meta.url).href);
   worker.onmessage = (e) => handle(worker, e.data, inSize);
   worker.onerror = (e) => {
     finish();

@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 // Size contract from the Phase 0 spike (~3.5x memory multiplier; browser heap
 // is tighter than Node). Tune after the browser-tab memory test.
@@ -73,7 +73,7 @@ btn.addEventListener("click", () => {
   renderProgress();
   ticker = setInterval(renderProgress, 100);
 
-  const worker = new Worker("/assets/js/workers/ghostscript-worker.js", { type: "module" });
+  const worker = new Worker(new URL("./workers/ghostscript-worker.js", import.meta.url).href, { type: "module" });
   worker.onmessage = (e) => handle(worker, e.data, preset);
   worker.onerror = (e) => {
     finish();

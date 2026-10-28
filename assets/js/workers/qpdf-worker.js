@@ -8,7 +8,7 @@ const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 let FACTORY_PROMISE = null;
 function loadFactory() {
   if (!FACTORY_PROMISE) {
-    FACTORY_PROMISE = import("/assets/wasm/qpdf/qpdf.mjs").then((m) => {
+    FACTORY_PROMISE = import("../../wasm/qpdf/qpdf.mjs").then((m) => {
       const f = m.default || m.init;
       if (typeof f !== "function") throw new Error("No factory in qpdf.mjs. Keys: " + Object.keys(m).join(", "));
       return f;
@@ -29,7 +29,7 @@ self.onmessage = async (e) => {
     console.error("[qpdf] " + el() + ": bootstrapping...");
     const FACTORY = await loadFactory();
     const qp = await FACTORY({
-      locateFile: (p) => "/assets/wasm/qpdf/" + p,
+      locateFile: (p) => new URL("../../wasm/qpdf/", import.meta.url).href + p,
       noInitialRun: true,
       print: (l) => console.log("[qpdf-out]", l),
       printErr: (l) => console.error("[qpdf-err]", l),

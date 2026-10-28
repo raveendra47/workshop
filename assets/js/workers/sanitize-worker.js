@@ -1,5 +1,5 @@
 // Classic worker — strips Info dict keys + XMP stream reference entirely.
-importScripts("/assets/vendor/pdf-lib.min.js");
+importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 

@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let exposed = 0;
@@ -86,7 +86,7 @@ function fail(msg) {
 
 function getWorker() {
   if (worker) return worker;
-  worker = new Worker("/assets/js/workers/sanitize-worker.js");
+  worker = new Worker(new URL("./workers/sanitize-worker.js", import.meta.url).href);
   worker.onmessage = (e) => handle(e.data);
   worker.onerror = (e) => {
     worker = null;

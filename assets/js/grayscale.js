@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let busy = false;
@@ -70,7 +70,7 @@ btn.addEventListener("click", () => {
   renderProgress();
   ticker = setInterval(renderProgress, 100);
 
-  const worker = new Worker("/assets/js/workers/grayscale-worker.js", { type: "module" });
+  const worker = new Worker(new URL("./workers/grayscale-worker.js", import.meta.url).href, { type: "module" });
   worker.onmessage = (e) => handle(worker, e.data);
   worker.onerror = (e) => {
     fail(e.message || "worker error (see console)");

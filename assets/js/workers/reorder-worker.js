@@ -1,5 +1,5 @@
 // Classic worker — rebuilds the PDF in the submitted page order.
-importScripts("/assets/vendor/pdf-lib.min.js");
+importScripts(new URL("../../vendor/pdf-lib.min.js", import.meta.url).href);
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 

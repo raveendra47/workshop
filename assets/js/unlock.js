@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let busy = false;
@@ -47,7 +47,7 @@ btn.addEventListener("click", async () => {
   }, 100);
 
   const buf = await file.arrayBuffer();
-  const worker = new Worker("/assets/js/workers/qpdf-worker.js", { type: "module" });
+  const worker = new Worker(new URL("./workers/qpdf-worker.js", import.meta.url).href, { type: "module" });
   worker.onmessage = async (e) => {
     const msg = e.data;
     if (msg.type === "error") {

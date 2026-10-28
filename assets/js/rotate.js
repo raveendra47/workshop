@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let pageCount = 0;
@@ -94,7 +94,7 @@ function renderProgress() {
 
 function getWorker() {
   if (worker) return worker;
-  worker = new Worker("/assets/js/workers/rotate-worker.js");
+  worker = new Worker(new URL("./workers/rotate-worker.js", import.meta.url).href);
   worker.onmessage = (e) => handle(e.data);
   worker.onerror = (e) => {
     worker = null;

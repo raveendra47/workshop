@@ -14,14 +14,14 @@ function dumpErr(err) {
 let FACTORY = null;
 let BOOT_ERR = null;
 try {
-  const mod = await import("/assets/wasm/ghostscript/gs.js");
+  const mod = await import("../../wasm/ghostscript/gs.js");
   FACTORY = mod.default;
   if (typeof FACTORY !== "function") {
     BOOT_ERR = "No default export factory in gs.js. Exports seen: " + Object.keys(mod).join(", ");
   }
 } catch (err) { BOOT_ERR = "Import failed: " + dumpErr(err); }
 
-const WASM_DIR = "/assets/wasm/ghostscript/";
+const WASM_DIR = new URL("../../wasm/ghostscript/", import.meta.url).href;
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 let gsLogs = [];
 const tap = (line) => { gsLogs.push(String(line)); send({ type: "log", line: String(line) }); };

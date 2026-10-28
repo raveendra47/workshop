@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
   <title>{{ title }} — {{ siteName | default("PDF Tools") }}</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | url }}">
 </head>
 <body>
   <header class="site-header">
     <div class="brand">
-      <a class="logo" href="/">PDF&nbsp;Tools</a>
+      <a class="logo" href="{{ '/' | url }}">PDF&nbsp;Tools</a>
       <span class="brand-sep" aria-hidden="true">·</span>
-      <a class="logo logo-images" href="/image-tools/">Image&nbsp;Tools</a>
+      <a class="logo logo-images" href="{{ '/image-tools/' | url }}">Image&nbsp;Tools</a>
     </div>
     <nav>
-      <a href="/history/">History</a>
-      <a href="/verify/">Verify</a>
+      <a href="{{ '/history/' | url }}">History</a>
+      <a href="{{ '/verify/' | url }}">Verify</a>
     </nav>
   </header>
 

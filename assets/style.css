@@ -367,7 +367,7 @@ h1 {
 /* Self-hosted Josefin Sans — headings, logo, big numbers */
 @font-face {
   font-family: "Josefin Sans";
-  src: url("/assets/fonts/josefin-sans-latin-wght-normal.woff2") format("woff2");
+  src: url("fonts/josefin-sans-latin-wght-normal.woff2") format("woff2");
   font-weight: 100 700;
   font-style: normal;
   font-display: swap;

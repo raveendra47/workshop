@@ -1,4 +1,4 @@
-import { initStampTool } from "/assets/js/shared-stamp.js";
+import { initStampTool } from "./shared-stamp.js";
 
 const typeInputs = document.querySelectorAll("input[name=wm-type]");
 typeInputs.forEach((r) => r.addEventListener("change", () => {

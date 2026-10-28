@@ -2,7 +2,7 @@
 // Design: onmessage is registered synchronously; the gs.js import is lazy.
 // Every stage reports to the page/console - silence is now impossible.
 
-const WASM_DIR = "/assets/wasm/ghostscript/";
+const WASM_DIR = new URL("../../wasm/ghostscript/", import.meta.url).href;
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 
 let gsLogs = [];

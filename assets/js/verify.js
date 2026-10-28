@@ -1,4 +1,4 @@
-import { downloadBlob, formatBytes } from "/assets/js/shared.js";
+import { downloadBlob, formatBytes } from "./shared.js";
 
 // ---------- request ledger ----------
 const rows = [];
@@ -141,7 +141,7 @@ document.getElementById("demo-heavy").addEventListener("click", () => {
   };
 
   makeDoc().then((bytes) => {
-    const w = new Worker("/assets/js/workers/ghostscript-worker.js", { type: "module" });
+    const w = new Worker(new URL("./workers/ghostscript-worker.js", import.meta.url).href, { type: "module" });
     w.onmessage = (e) => {
       const msg = e.data;
       if (msg.type === "log") return;

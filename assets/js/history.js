@@ -1,4 +1,4 @@
-import { getHistoryEntries, deleteHistoryEntry, clearHistory, formatBytes } from "/assets/js/shared.js";
+import { getHistoryEntries, deleteHistoryEntry, clearHistory, formatBytes } from "./shared.js";
 
 const filterRow = document.getElementById("filter-row");
 const entriesEl = document.getElementById("entries");

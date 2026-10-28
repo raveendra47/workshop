@@ -1,4 +1,4 @@
-import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "/assets/js/shared.js";
+import { initUpload, downloadBlob, formatBytes, logHistoryEntry } from "./shared.js";
 
 let file = null;
 let busy = false;
@@ -55,7 +55,7 @@ btn.addEventListener("click", async () => {
   }, 100);
 
   const buf = await file.arrayBuffer();
-  const worker = new Worker("/assets/js/workers/repair-worker.js");
+  const worker = new Worker(new URL("./workers/repair-worker.js", import.meta.url).href);
   worker.onmessage = async (e) => {
     const msg = e.data;
     if (msg.type === "note") { addNote(msg.text); return; }
