@@ -1,0 +1,39 @@
+---
+layout: base.njk
+title: EXIF Strip
+siteName: Image Tools
+---
+<h1>Strip photo metadata</h1>
+<p class="page-note">Photos remember: GPS coordinates, your camera or phone model, timestamps, editing software. See what yours leaks, then strip it. Re-encoding preserves pixels and removes all metadata. Nothing is uploaded.</p>
+
+{% set uploadId = "exif" %}
+{% set uploadMultiple = true %}
+{% set accept = "image/jpeg,image/png,image/webp" %}
+{% include "upload-widget.njk" %}
+
+<div id="exif-list"></div>
+
+<div id="exif-controls" hidden>
+  <fieldset class="preset-fieldset">
+    <legend>JPEG output quality</legend>
+    <div class="preset-row">
+      <label class="preset-pill"><input type="radio" name="eq" value="0.92" checked><span>High (92%)</span></label>
+      <label class="preset-pill"><input type="radio" name="eq" value="0.8"><span>Balanced (80%)</span></label>
+      <label class="preset-pill"><input type="radio" name="eq" value="0.65"><span>Small (65%)</span></label>
+    </div>
+    <p class="csp-sub">PNG and WebP inputs keep their format; PNG quality choice doesn't apply (lossless).</p>
+  </fieldset>
+  <button id="run-btn" class="btn" disabled>Strip metadata</button>
+</div>
+
+<div id="progress-wrap" hidden>
+  <div class="progress"><div class="progress-bar"></div></div>
+  <p id="progress-status" role="status"></p>
+</div>
+
+<div id="dl-card" class="result-card" hidden></div>
+<p id="status" role="status"></p>
+
+<script src="/assets/vendor/fflate.min.js"></script>
+<script src="/assets/vendor/idb.min.js"></script>
+<script type="module" src="/assets/js/exif.js"></script>

@@ -1,0 +1,54 @@
+---
+layout: base.njk
+permalink: /image-compress/
+title: Compress Images — Image Tools
+---
+
+<link rel="stylesheet" href="/assets/css/image-tools.css">
+
+<section class="ie-page">
+  <h1 class="ie-h1">Compress Images</h1>
+  <p class="ie-lede">Shrink photos and screenshots to a fraction of their size — right here in your browser. Nothing is uploaded; the files never leave this tab.</p>
+
+  <div class="ie-zone" id="ie-zone" tabindex="0" role="button" aria-label="Add images: drop files here or press Enter to browse">
+    <input type="file" id="ie-input" accept="image/*" multiple hidden>
+    <p class="ie-zone-title">Drop images here <span class="ie-or">or click to browse</span></p>
+    <p class="ie-zone-sub">JPG · PNG · WebP · GIF (first frame) · BMP — batches welcome</p>
+  </div>
+
+  <div class="ie-controls">
+    <label class="ie-field">Output format
+      <select id="ie-format">
+        <option value="image/jpeg" selected>JPEG — smallest, no transparency</option>
+        <option value="image/webp">WebP — small, keeps transparency</option>
+        <option value="image/png">PNG — lossless, keeps transparency</option>
+      </select>
+    </label>
+    <label class="ie-field">Quality — <output id="ie-quality-out">80%</output>
+      <input type="range" id="ie-quality" min="0.05" max="1" step="0.05" value="0.8">
+    </label>
+    <label class="ie-field">Max dimension
+      <select id="ie-maxdim">
+        <option value="" selected>Keep original size</option>
+        <option value="3840">Cap at 4K — 3840 px</option>
+        <option value="2560">Cap at 2K — 2560 px</option>
+        <option value="1920">Cap at 1080p — 1920 px</option>
+        <option value="1280">Cap at 1280 px</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="ie-run">
+    <button type="button" id="ie-go" class="ie-btn" disabled>Compress</button>
+    <button type="button" id="ie-clear" class="ie-btn" disabled>Clear</button>
+    <button type="button" id="ie-zip" class="ie-btn" hidden>Download all (.zip)</button>
+    <span class="ie-status mono" id="ie-status"></span>
+  </div>
+
+  <pre class="ie-log mono" id="ie-log" aria-live="polite"></pre>
+  <div class="ie-results" id="ie-results"></div>
+  <div class="ie-ziprow mono" id="ie-ziprow" hidden></div>
+</section>
+
+<script src="/assets/js/image-engine.js"></script>
+<script src="/assets/js/image-compress.js"></script>

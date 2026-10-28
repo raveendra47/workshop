@@ -1,0 +1,45 @@
+---
+layout: base.njk
+permalink: /image-convert/
+title: Convert Images — Image Tools
+---
+
+<link rel="stylesheet" href="/assets/css/image-tools.css">
+
+<section class="ie-page">
+  <h1 class="ie-h1">Convert Images</h1>
+  <p class="ie-lede">PNG to JPEG, JPEG to WebP, WebP to PNG — all in this tab. JPEG output gets flattened onto white so transparency never turns black.</p>
+
+  <div class="ie-zone" id="ie-zone" tabindex="0" role="button" aria-label="Add images: drop files here or press Enter to browse">
+    <input type="file" id="ie-input" accept="image/*" multiple hidden>
+    <p class="ie-zone-title">Drop images here <span class="ie-or">or click to browse</span></p>
+    <p class="ie-zone-sub">JPG · PNG · WebP · GIF (first frame) · BMP — batches welcome</p>
+  </div>
+
+  <div class="ie-controls">
+    <label class="ie-field">Convert to
+      <select id="ie-format">
+        <option value="image/jpeg" selected>JPEG — smallest, flattens transparency to white</option>
+        <option value="image/webp">WebP — small, keeps transparency</option>
+        <option value="image/png">PNG — lossless, keeps transparency</option>
+      </select>
+    </label>
+    <label class="ie-field">Quality — <output id="ie-quality-out">85%</output>
+      <input type="range" id="ie-quality" min="0.05" max="1" step="0.05" value="0.85">
+    </label>
+  </div>
+
+  <div class="ie-run">
+    <button type="button" id="ie-go" class="ie-btn" disabled>Convert</button>
+    <button type="button" id="ie-clear" class="ie-btn" disabled>Clear</button>
+    <button type="button" id="ie-zip" class="ie-btn" hidden>Download all (.zip)</button>
+    <span class="ie-status mono" id="ie-status"></span>
+  </div>
+
+  <pre class="ie-log mono" id="ie-log" aria-live="polite"></pre>
+  <div class="ie-results" id="ie-results"></div>
+  <div class="ie-ziprow mono" id="ie-ziprow" hidden></div>
+</section>
+
+<script src="/assets/js/image-engine.js"></script>
+<script src="/assets/js/image-convert.js"></script>

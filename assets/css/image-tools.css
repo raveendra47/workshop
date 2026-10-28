@@ -1,0 +1,48 @@
+/* image-tools.css - shared styles for the single-tool image pages */
+.ie-page { max-width: 62rem; margin: 0 auto; }
+.ie-h1 { font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 700; letter-spacing: 0.02em; }
+.ie-lede { font-family: Georgia, "Times New Roman", serif; font-style: italic; opacity: 0.85; max-width: 62ch; }
+.ie-zone { border: 2px dashed rgba(128, 128, 128, 0.45); border-radius: 12px; padding: 2.4rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
+.ie-zone:hover { border-color: rgba(128, 128, 128, 0.8); }
+.ie-zone:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.ie-zone.ie-drag { border-color: currentColor; background: rgba(128, 128, 128, 0.08); }
+.ie-zone-title { font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 700; margin: 0 0 0.3rem; }
+.ie-or { opacity: 0.65; font-weight: 400; }
+.ie-zone-sub { margin: 0; font-size: 0.85rem; opacity: 0.65; }
+.ie-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.2rem 0 0.6rem; }
+.ie-field { display: flex; flex-direction: column; gap: 0.35rem; flex: 1 1 200px; min-width: 200px; }
+.ie-field select, .ie-field input[type="number"] { padding: 0.45rem 0.6rem; border-radius: 6px; border: 1px solid rgba(128, 128, 128, 0.45); background: transparent; color: inherit; font: inherit; }
+.ie-fieldset { border: 1px solid rgba(128, 128, 128, 0.45); border-radius: 8px; display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.6rem 0.9rem; margin: 0; }
+.ie-fieldset legend { font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 700; padding: 0 0.4rem; }
+.ie-check { display: flex; align-items: center; gap: 0.5rem; }
+.ie-inline { display: flex; align-items: center; gap: 0.5rem; }
+.ie-inline input { width: 6.5rem; }
+.ie-run { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; margin: 1rem 0; }
+.ie-btn { padding: 0.5rem 1.3rem; border-radius: 999px; border: 1.5px solid currentColor; background: transparent; color: inherit; font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; }
+.ie-btn:hover:not(:disabled) { background: rgba(128, 128, 128, 0.14); }
+.ie-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.ie-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.ie-status { font-size: 0.85rem; opacity: 0.8; }
+.mono { font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace; }
+.ie-log { max-height: 180px; overflow: auto; padding: 0.8rem 1rem; border: 1px solid rgba(128, 128, 128, 0.35); border-radius: 8px; font-size: 0.8rem; white-space: pre-wrap; margin: 0.6rem 0 0; }
+.ie-log-warn { color: #b8860b; }
+.ie-log-err { color: #d64541; }
+.ie-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+.ie-card { border: 1px solid rgba(128, 128, 128, 0.35); border-radius: 10px; padding: 0.7rem; display: flex; flex-direction: column; gap: 0.5rem; margin: 0; }
+.ie-thumbwrap { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 6px; background: rgba(128, 128, 128, 0.12); display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+.ie-thumb { max-width: 100%; max-height: 100%; object-fit: contain; }
+.ie-meta { display: grid; gap: 0.15rem; font-size: 0.82rem; }
+.ie-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ie-good { color: #1e8449; }
+.ie-bad { color: #d64541; }
+.ie-dl { display: inline-block; text-align: center; padding: 0.35rem 1rem; border: 1.5px solid currentColor; border-radius: 999px; text-decoration: none; font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 700; font-size: 0.85rem; }
+.ie-dl:hover { background: rgba(128, 128, 128, 0.14); }
+.ie-dl:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.ie-ziprow { margin-top: 0.8rem; }
+.ie-ziprow a { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+#ie-lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+#ie-lightbox[hidden] { display: none; }
+#ie-lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 6px; }
+#ie-lightbox-close { position: absolute; top: 1rem; right: 1.2rem; font-size: 1.4rem; line-height: 1; width: 2.4rem; height: 2.4rem; border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, 0.6); background: transparent; color: #fff; cursor: pointer; }
+body.ie-noscroll { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .ie-zone { transition: none; } }

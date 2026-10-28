@@ -1,0 +1,71 @@
+---
+layout: base.njk
+permalink: /image-resize/
+title: Resize Images — Image Tools
+---
+
+<link rel="stylesheet" href="/assets/css/image-tools.css">
+
+<section class="ie-page">
+  <h1 class="ie-h1">Resize Images</h1>
+  <p class="ie-lede">Scale by width, height, percentage or exact pixels — aspect ratio respected unless you ask for exact distortion. Everything happens in this tab.</p>
+
+  <div class="ie-zone" id="ie-zone" tabindex="0" role="button" aria-label="Add images: drop files here or press Enter to browse">
+    <input type="file" id="ie-input" accept="image/*" multiple hidden>
+    <p class="ie-zone-title">Drop images here <span class="ie-or">or click to browse</span></p>
+    <p class="ie-zone-sub">JPG · PNG · WebP · GIF (first frame) · BMP — batches welcome</p>
+  </div>
+
+  <div class="ie-controls">
+    <label class="ie-field">Resize by
+      <select id="ie-mode">
+        <option value="width" selected>Target width — keeps aspect</option>
+        <option value="height">Target height — keeps aspect</option>
+        <option value="percent">Percent of original</option>
+        <option value="exact">Exact size — may distort</option>
+      </select>
+    </label>
+    <label class="ie-field" id="ie-f-width">Width in px
+      <input type="number" id="ie-v-width" value="1920" min="1" max="20000">
+    </label>
+    <label class="ie-field" id="ie-f-height" hidden>Height in px
+      <input type="number" id="ie-v-height" value="1080" min="1" max="20000">
+    </label>
+    <label class="ie-field" id="ie-f-percent" hidden>Percent
+      <input type="number" id="ie-v-percent" value="50" min="1" max="500">
+    </label>
+    <div class="ie-field" id="ie-f-exact" hidden>
+      <span>Exact size — width × height</span>
+      <div class="ie-inline">
+        <input type="number" id="ie-v-exact-w" value="1280" min="1" aria-label="Exact width in px">
+        <span aria-hidden="true">×</span>
+        <input type="number" id="ie-v-exact-h" value="960" min="1" aria-label="Exact height in px">
+      </div>
+    </div>
+    <label class="ie-field">Output format
+      <select id="ie-format">
+        <option value="auto" selected>Keep each file's format</option>
+        <option value="image/jpeg">JPEG</option>
+        <option value="image/png">PNG</option>
+        <option value="image/webp">WebP</option>
+      </select>
+    </label>
+    <label class="ie-field">Quality — <output id="ie-quality-out">85%</output>
+      <input type="range" id="ie-quality" min="0.05" max="1" step="0.05" value="0.85">
+    </label>
+  </div>
+
+  <div class="ie-run">
+    <button type="button" id="ie-go" class="ie-btn" disabled>Resize</button>
+    <button type="button" id="ie-clear" class="ie-btn" disabled>Clear</button>
+    <button type="button" id="ie-zip" class="ie-btn" hidden>Download all (.zip)</button>
+    <span class="ie-status mono" id="ie-status"></span>
+  </div>
+
+  <pre class="ie-log mono" id="ie-log" aria-live="polite"></pre>
+  <div class="ie-results" id="ie-results"></div>
+  <div class="ie-ziprow mono" id="ie-ziprow" hidden></div>
+</section>
+
+<script src="/assets/js/image-engine.js"></script>
+<script src="/assets/js/image-resize.js"></script>
