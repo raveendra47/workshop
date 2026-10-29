@@ -4,7 +4,7 @@
 // spec.numbering = { start } → enables {n}/{total}/{page} substitution
 // spec.position = tl|tc|tr|ml|mc|mr|bl|bc|br   spec.margin (pts)   spec.pages (1-based, optional)
 importScripts("../../vendor/pdf-lib.min.js");
-importScripts("../../vendor/pdf-lib.min.js");
+importScripts("../../vendor/fontkit.umd.min.js");
 
 const send = (msg, transfer) => self.postMessage(msg, transfer || []);
 const POS = {
@@ -28,11 +28,11 @@ self.onmessage = async (e) => {
     const pages = src.getPages();
     send({ type: "start", total: pages.length });
 
-    src.registerFontkit(self.fontkit);
 
     let font = null;
     let img = null;
     if (spec.text) {
+      src.registerFontkit(self.fontkit);
       font = await src.embedFont(fontBytes, { subset: true });
     } else {
       img = await src.embedPng(imageBytes).catch(() => src.embedJpg(imageBytes));
